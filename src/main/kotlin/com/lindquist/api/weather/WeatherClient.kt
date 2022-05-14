@@ -18,11 +18,7 @@ import java.util.concurrent.TimeUnit
 
 @Component
 class WeatherClient(
-    val client: WebClient =
-        WebClient
-            .builder()
-            .clientConnector(ReactorClientHttpConnector(httpClient()))
-            .build()
+    val client: WebClient = webClient()
 ) {
   fun getWeather(city: String): Mono<CityWeather> =
       client.post()
@@ -34,6 +30,12 @@ class WeatherClient(
           .toEntity(GoWeatherDTO::class.java)
           .mapNotNull { it.body?.toCityWeather() }
 }
+
+fun webClient(): WebClient =
+    WebClient
+        .builder()
+        .clientConnector(ReactorClientHttpConnector(httpClient()))
+        .build()
 
 fun httpClient(): HttpClient =
     HttpClient.create()
