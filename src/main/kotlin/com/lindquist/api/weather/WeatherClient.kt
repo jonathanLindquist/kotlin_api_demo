@@ -1,9 +1,6 @@
 package com.lindquist.api.weather
 
-import com.lindquist.api.weather.models.CityWeather
-import com.lindquist.api.weather.models.CityWeatherDTO
-import com.lindquist.api.weather.models.toCityWeather
-import com.lindquist.api.weather.models.toCityWeatherDTO
+import com.lindquist.api.weather.models.*
 import io.netty.channel.ChannelOption
 import io.netty.handler.timeout.ReadTimeoutHandler
 import io.netty.handler.timeout.WriteTimeoutHandler
@@ -34,7 +31,7 @@ class WeatherClient(
           .accept(MediaType.APPLICATION_JSON)
           .acceptCharset(StandardCharsets.UTF_8)
           .retrieve()
-          .toEntity(CityWeatherDTO::class.java)
+          .toEntity(GoWeatherDTO::class.java)
           .mapNotNull { it.body?.toCityWeather() }
 }
 
