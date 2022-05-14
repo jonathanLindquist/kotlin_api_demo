@@ -1,10 +1,10 @@
 package com.lindquist.api.weather.models
 
 data class CityWeatherDTO(
-        val temperature: String
+    val temperature: String
 )
 
 fun CityWeatherDTO.toCityWeather() =
-        CityWeather(
-                temperature = temperature
-        )
+    CityWeather(
+        temperature = temperature
+    )

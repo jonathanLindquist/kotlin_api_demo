@@ -10,10 +10,10 @@ import reactor.core.publisher.Mono
 
 @RestController("/api/v1/weather")
 class WeatherController(val weatherService: WeatherService) {
-    @GetMapping("/city/{city}")
-    fun getWeatherByCity(@PathVariable city: String, @RequestParam item: String?): Mono<CityWeatherDTO> {
-        return weatherService
-                .getWeatherByCity(city)
-                .map { it.toCityWeatherDTO() }
-    }
+  @GetMapping("/city/{city}")
+  fun getWeatherByCity(@PathVariable city: String, @RequestParam item: String?): Mono<CityWeatherDTO> {
+    return weatherService
+        .getWeatherByCity(city)
+        .map { it.toCityWeatherDTO() }
+  }
 }
