@@ -22,7 +22,6 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
@@ -32,11 +31,13 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	testImplementation("org.spockframework:spock-core:2.1-groovy-2.5")
-	testImplementation("org.spockframework:spock-core")
+//  implementation("org.spockframework:spock-core")
+  
+//  testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.spockframework:spock-core:2.1-groovy-3.0")
+	testImplementation("org.codehaus.groovy:groovy-all:3.0.10")
 	testImplementation("io.projectreactor:reactor-test")
+	testCompileOnly("cglib:cglib-nodep:3.3.0")
 }
 
 tasks.withType<KotlinCompile> {

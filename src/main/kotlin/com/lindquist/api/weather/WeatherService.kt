@@ -1,7 +1,6 @@
 package com.lindquist.api.weather
 
 import com.lindquist.api.weather.models.CityWeather
-import com.lindquist.api.weather.models.CityWeatherDTO
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
