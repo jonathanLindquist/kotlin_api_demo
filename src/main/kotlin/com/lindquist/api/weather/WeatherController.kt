@@ -14,6 +14,5 @@ class WeatherController(val weatherService: WeatherService) {
   fun getWeatherByCity(@PathVariable city: String, @RequestParam item: String?): Mono<CityWeatherDTO> {
     return weatherService
         .getWeatherByCity(city)
-        .map { it.toCityWeatherDTO() }
   }
 }
