@@ -2,10 +2,12 @@ package com.lindquist.api.weather
 
 import com.lindquist.api.weather.models.*
 import io.netty.channel.ChannelOption
+import io.netty.handler.codec.http.HttpResponseStatus
 import io.netty.handler.timeout.ReadTimeoutHandler
 import io.netty.handler.timeout.WriteTimeoutHandler
-import kotlinx.coroutines.reactor.mono
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.MediaType
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.stereotype.Component
@@ -27,6 +29,9 @@ class WeatherClient(
           .accept(MediaType.APPLICATION_JSON)
           .acceptCharset(StandardCharsets.UTF_8)
           .retrieve()
+          .onStatus(HttpStatusCode::is4xxClientError) {
+            throw Exception("400 error")
+          }
           .toEntity(GoWeatherDTO::class.java)
           .mapNotNull { it.body?.toCityWeather() }
 }
