@@ -12,6 +12,8 @@ import org.springframework.http.MediaType
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.WebClientResponseException
+import org.springframework.web.reactive.function.client.WebClientResponseException.Unauthorized
 import reactor.core.publisher.Mono
 import reactor.netty.http.client.HttpClient
 import java.nio.charset.StandardCharsets
@@ -29,8 +31,12 @@ class WeatherClient(
           .accept(MediaType.APPLICATION_JSON)
           .acceptCharset(StandardCharsets.UTF_8)
           .retrieve()
-          .onStatus(HttpStatusCode::is4xxClientError) {
-            throw Exception("400 error")
+          .onStatus(HttpStatusCode::is4xxClientError) { response ->
+            if (response.statusCode() == HttpStatusCode.valueOf(403)) {
+              Mono.error(Exception())
+            } else {
+              Mono.error(Exception())
+            }
           }
           .toEntity(GoWeatherDTO::class.java)
           .mapNotNull { it.body?.toCityWeather() }
