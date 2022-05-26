@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 @Component
 class WeatherClient(val client: WebClient = webClient()) {
   fun getWeather(city: String): Mono<CityWeather> =
-    client.post()
+    client.get()
       .uri("https://goweather.herokuapp.com/weather/${city}")
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .accept(MediaType.APPLICATION_JSON)

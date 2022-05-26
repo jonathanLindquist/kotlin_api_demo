@@ -18,12 +18,11 @@ class WeatherServiceSpec extends Specification {
     CityWeather cityWeather = new CityWeather(
         "98"
     )
-    weatherClient.getWeather(city) >> Mono.just(cityWeather)
-    
+
     when:
     weatherService.getWeatherByCity(city)
     
     then:
-    1 * weatherClient.getWeather(city)
+    1 * weatherClient.getWeather(city) >> Mono.just(cityWeather)
   }
 }

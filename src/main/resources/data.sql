@@ -1,0 +1,1 @@
+INSERT INTO Items (id, localizedName) VALUES (1, 'One');
