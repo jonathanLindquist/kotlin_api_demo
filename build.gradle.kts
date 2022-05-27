@@ -1,6 +1,7 @@
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
   id("org.springframework.boot") version "3.0.0-SNAPSHOT"
@@ -19,6 +20,15 @@ repositories {
   mavenCentral()
   maven { url = uri("https://repo.spring.io/milestone") }
   maven { url = uri("https://repo.spring.io/snapshot") }
+}
+
+val localH2Implementation: Configuration by configurations.creating {
+	extendsFrom(configurations["implementation"])
+	exclude(group = "org.postgresql", module = "postgresql")
+}
+
+val localH2RuntimeOnly: Configuration by configurations.creating {
+	extendsFrom(configurations["runtimeOnly"])
 }
 
 dependencies {
@@ -55,22 +65,14 @@ tasks.withType<Test> {
   }
 }
 
-val localH2Implementation: Configuration by configurations.creating {
-  extendsFrom(configurations["implementation"])
-  exclude(group = "org.postgresql", module = "postgresql")
-}
-val localH2RuntimeOnly: Configuration by configurations.creating {
-  extendsFrom(configurations["runtimeOnly"])
-}
-
 sourceSets {
   create("localH2") {
-    compileClasspath += sourceSets["main"].output
-    runtimeClasspath += sourceSets["main"].output
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
   }
 }
 
-val newTask = tasks.create("newType", org.springframework.boot.gradle.tasks.run.BootRun::class.java) {
-  this.mainClass.set("com.lindquist.api.ApiApplication")
-  this.classpath = sourceSets["localH2"].runtimeClasspath
+val newTask = task<BootRun>("localH2") {
+  mainClass.set("com.lindquist.api.ApiApplication")
+  classpath = sourceSets["localH2"].runtimeClasspath
 }
