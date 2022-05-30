@@ -1,1 +1,1 @@
-INSERT INTO Items (id, localizedName) VALUES (1, 'One');
+INSERT INTO Weather (id, city, temperature) VALUES (1, 'One', 5.6);
