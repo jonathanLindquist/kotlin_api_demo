@@ -24,16 +24,10 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
-//	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+
+	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
-//	implementation("org.jooq:jooq")
-
-//	jooqGenerator("org.postgresql:postgresql:42.3.2")
-
-	implementation("com.h2database:h2")
-//	runtimeOnly("io.r2dbc:r2dbc-h2")
-//	implementation("io.r2dbc:r2dbc-postgresql:0.8.12.RELEASE")
-	implementation("org.postgresql:postgresql")
+	implementation("io.r2dbc:r2dbc-h2")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
